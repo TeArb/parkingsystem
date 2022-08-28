@@ -14,7 +14,7 @@ public class DataBaseTestConfig extends DataBaseConfig {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/test","root","rootroot");
+        		"jdbc:mysql://localhost:3306/test?serverTimezone=UTC","root","rootroot");
     }
 
     public void closeConnection(Connection con){
@@ -22,7 +22,8 @@ public class DataBaseTestConfig extends DataBaseConfig {
             try {
                 con.close();
                 logger.info("Closing DB connection");
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 logger.error("Error while closing connection",e);
             }
         }
@@ -33,7 +34,8 @@ public class DataBaseTestConfig extends DataBaseConfig {
             try {
                 ps.close();
                 logger.info("Closing Prepared Statement");
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 logger.error("Error while closing prepared statement",e);
             }
         }
@@ -44,7 +46,8 @@ public class DataBaseTestConfig extends DataBaseConfig {
             try {
                 rs.close();
                 logger.info("Closing Result Set");
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 logger.error("Error while closing result set",e);
             }
         }

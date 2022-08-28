@@ -10,21 +10,19 @@ public class DataBasePrepareService {
 
     public void clearDataBaseEntries(){
         Connection connection = null;
+        
         try{
             connection = dataBaseTestConfig.getConnection();
-
             //set parking entries to available
             connection.prepareStatement("update parking set available = true").execute();
-
             //clear ticket entries;
             connection.prepareStatement("truncate table ticket").execute();
-
-        }catch(Exception e){
+        }
+        catch(Exception e){
             e.printStackTrace();
-        }finally {
+        }
+        finally {
             dataBaseTestConfig.closeConnection(connection);
         }
     }
-
-
 }

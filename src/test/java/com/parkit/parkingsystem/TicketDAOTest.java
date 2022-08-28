@@ -1,6 +1,6 @@
 package com.parkit.parkingsystem;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Date;
 
@@ -9,6 +9,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.TicketDAO;
@@ -17,16 +19,17 @@ import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 
+@ExtendWith(MockitoExtension.class)
 class TicketDAOTest {
 	
-	 private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-	 private static TicketDAO ticketDAO;
-	 private static DataBasePrepareService dataBasePrepareService;
-	
+	private static TicketDAO ticketDAO;
+	static DataBasePrepareService dataBasePrepareService;
+	static DataBaseTestConfig dataBaseTestConfig;
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
         ticketDAO = new TicketDAO();
-        ticketDAO.dataBaseConfig = dataBaseTestConfig;
+       // ticketDAO.dataBaseConfig = dataBaseTestConfig;
         dataBasePrepareService = new DataBasePrepareService();
 	}
 
@@ -36,7 +39,6 @@ class TicketDAOTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		dataBasePrepareService.clearDataBaseEntries();
 	}
 
 	@AfterEach
@@ -44,25 +46,26 @@ class TicketDAOTest {
 	}
 
 	@Test
-	void saveTicketGenerated() {
-		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+	void saveTicketGenerated() throws Exception {
 		Ticket ticket = new Ticket();
-        ticket.setParkingSpot(parkingSpot);
-        ticket.setVehicleRegNumber("ABCDEF");
+		ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+		ticket.setParkingSpot(parkingSpot);
+        ticket.setVehicleRegNumber(null);
         ticket.setPrice(0);
-		ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
-        ticket.setOutTime(null);
-        assertEquals(false, ticketDAO.saveTicket(ticket));
+        ticket.setInTime(new Date(System.currentTimeMillis() - (60 * 60 * 1000)));
+		
+		
+		assertEquals(true, ticketDAO.saveTicket(ticket));
 	}
 	/*
 	@Test
 	void getTicketGenerated() throws Exception {
-		assertNotEquals(null, ticketDAO.getTicket("ABCDEF"));
+		assertNotEquals(null, ticketDAO.getTicket(""));
 	}
 	
 	@Test
 	void updateTicketGenerated() {	
 		assertEquals(false, ticketDAO.updateTicket(ticket));
-	}
-*/
+	}*/
+
 }

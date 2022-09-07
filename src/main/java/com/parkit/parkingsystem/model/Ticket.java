@@ -10,7 +10,10 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
-
+    /**
+	* 
+	* @param get and set for ticket data
+	*/
     public int getId() {
         return id;
     }

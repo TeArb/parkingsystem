@@ -9,7 +9,10 @@ import org.apache.logging.log4j.Logger;
 public class InteractiveShell {
 
     private static final Logger logger = LogManager.getLogger("InteractiveShell");
-
+    /**
+	* 
+	* @param interface of the application
+	*/
     public static void loadInterface(){
         logger.info("App initialized!!!");
         
@@ -21,18 +24,22 @@ public class InteractiveShell {
         TicketDAO ticketDAO = new TicketDAO();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
-        while(continueApp){
+        while(continueApp) {
             loadMenu();
             int option = inputReaderUtil.readSelection();
-            switch(option){
+            
+            switch(option) {
+            // If case 1 process to incoming the vehicle
                 case 1: {
                     parkingService.processIncomingVehicle();
                     break;
                 }
+             // If case 2 process to exciting the vehicle
                 case 2: {
                     parkingService.processExitingVehicle();
                     break;
                 }
+             // If case 3 shutdown system
                 case 3: {
                     System.out.println("Exiting from the system!");
                     continueApp = false;
@@ -43,7 +50,7 @@ public class InteractiveShell {
         }
     }
 
-    private static void loadMenu(){
+    private static void loadMenu() {
         System.out.println("Please select an option. Simply enter the number to choose an action");
         System.out.println("1 New Vehicle Entering - Allocate Parking Space");
         System.out.println("2 Vehicle Exiting - Generate Ticket Price");

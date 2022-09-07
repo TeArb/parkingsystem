@@ -6,7 +6,10 @@ public class ParkingSpot {
     private int number;
     private ParkingType parkingType;
     private boolean isAvailable;
-
+    /**
+	* 
+	* @param get and set for the parking spot
+	*/
     public ParkingSpot(int number, ParkingType parkingType, boolean isAvailable) {
         this.number = number;
         this.parkingType = parkingType;

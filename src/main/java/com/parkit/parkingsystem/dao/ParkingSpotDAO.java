@@ -16,7 +16,10 @@ public class ParkingSpotDAO {
 	private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
     public DataBaseConfig dataBaseConfig = new DataBaseConfig();
-
+    /**
+	* 
+	* @param get the next available parking spot from the database
+	*/
     public int getNextAvailableSlot(ParkingType parkingType){
         Connection con = null;
         int result = -1;
@@ -25,8 +28,8 @@ public class ParkingSpotDAO {
             con = dataBaseConfig.getConnection();
             PreparedStatement ps = con.prepareStatement(DBConstants.GET_NEXT_PARKING_SPOT);
             ps.setString(1, parkingType.toString());
-            ResultSet rs = ps.executeQuery();
-            
+            ResultSet rs = ps.executeQuery();          
+            // Get the next value of the row in the DB
             if(rs.next()) {
                 result = rs.getInt(1);
             }
@@ -41,18 +44,23 @@ public class ParkingSpotDAO {
         }
         return result;
     }
-
+    /**
+	* 
+	* @param update the parking spot from the database
+	*/
     public boolean updateParking(ParkingSpot parkingSpot){
-        //update the availability for that parking slot
         Connection con = null;
         
         try {
             con = dataBaseConfig.getConnection();
+            // Update the availability for that parking slot
             PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_PARKING_SPOT);
             ps.setBoolean(1, parkingSpot.isAvailable());
             ps.setInt(2, parkingSpot.getId());
+            
             int updateRowCount = ps.executeUpdate();
             dataBaseConfig.closePreparedStatement(ps);
+            
             return (updateRowCount == 1);
         }
         catch (Exception ex) {

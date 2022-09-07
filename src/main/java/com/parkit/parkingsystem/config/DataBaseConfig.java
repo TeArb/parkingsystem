@@ -8,16 +8,22 @@ import java.sql.*;
 public class DataBaseConfig {
 
     private static final Logger logger = LogManager.getLogger("DataBaseConfig");
-
+    /**
+	* 
+	* @param create database connection
+	*/
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(
         		"jdbc:mysql://localhost:3306/test?serverTimezone=UTC", "root", "rootroot");
     }
-
-    public void closeConnection(Connection con){
-        if(con != null){
+    /**
+	* 
+	* @param close database connection
+	*/
+    public void closeConnection(Connection con) {
+        if(con != null) {
             try {
                 con.close();
                 logger.info("Closing DB connection");
@@ -27,9 +33,12 @@ public class DataBaseConfig {
             }
         }
     }
-
+    /**
+	* 
+	* @param close precompiled SQL statement stored
+	*/
     public void closePreparedStatement(PreparedStatement ps) {
-        if(ps  !=null){
+        if(ps  != null) {
             try {
                 ps.close();
                 logger.info("Closing Prepared Statement");
@@ -39,9 +48,12 @@ public class DataBaseConfig {
             }
         }
     }
-
+    /**
+	* 
+	* @param close the table of data generated
+	*/
     public void closeResultSet(ResultSet rs) {
-        if(rs != null){
+        if(rs != null) {
             try {
                 rs.close();
                 logger.info("Closing Result Set");

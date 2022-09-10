@@ -7,8 +7,11 @@ import java.sql.Connection;
 public class DataBasePrepareService {
 
     DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-
-    public void clearDataBaseEntries(){
+    /**
+	* 
+	* @param clear the DB
+	*/
+    public void clearDataBaseEntries() {
         Connection connection = null;
         
         try{
@@ -18,7 +21,7 @@ public class DataBasePrepareService {
             //clear ticket entries;
             connection.prepareStatement("truncate table ticket").execute();
         }
-        catch(Exception e){
+        catch(Exception e) {
             e.printStackTrace();
         }
         finally {

@@ -42,18 +42,19 @@ public class ParkingDataBaseIT {
 
     @BeforeEach
     private void setUpPerTest() throws Exception {
+    	// Fainted the selection of the vehicle and the registration number
         when(inputReaderUtil.readSelection()).thenReturn(1);
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
+        
         dataBasePrepareService.clearDataBaseEntries();
     }
 
     @AfterAll
     private static void tearDown(){
-
     }
 
     @Test
-    public void testParkingACar() throws Exception{
+    public void testParkingACar() throws Exception {
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         
@@ -64,8 +65,9 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingLotExit() throws Exception{
+    public void testParkingLotExit() throws Exception {
         testParkingACar();
+        
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
         

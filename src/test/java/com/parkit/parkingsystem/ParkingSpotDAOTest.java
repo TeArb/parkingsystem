@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,10 +14,11 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 
 class ParkingSpotDAOTest {
 
-	private ParkingSpotDAO parkingSpotDAO;
+	private static ParkingSpotDAO parkingSpotDAO;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		parkingSpotDAO = new ParkingSpotDAO();
 	}
 
 	@AfterAll
@@ -25,7 +27,6 @@ class ParkingSpotDAOTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		parkingSpotDAO = new ParkingSpotDAO();
 	}
 
 	@AfterEach
@@ -36,7 +37,7 @@ class ParkingSpotDAOTest {
 	void getNextAvaiableSlotCar() {
 		assertNotEquals(1, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
 	}
-	
+
 	@Test
 	void getNextAvaiableSlotBike() {
 		assertNotEquals(1, parkingSpotDAO.getNextAvailableSlot(ParkingType.BIKE));
@@ -48,5 +49,4 @@ class ParkingSpotDAOTest {
 		
 		assertEquals(true, parkingSpotDAO.updateParking(parkingSpot));
 	}
-
 }

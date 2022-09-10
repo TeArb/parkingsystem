@@ -9,12 +9,12 @@ public class FareCalculatorService {
 	* @param calculates the fare of the ticket according to the out time and the vehicle
 	*/
     @SuppressWarnings("deprecation")
-	public void calculateFare(Ticket ticket) {
-    	// Display an error if the out time is null or after in time
+	public void calculateFare(Ticket ticket) { 
+        // Display an error if the out time is null or after in time
         if((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
             throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
-        }
-        
+        } 
+       
         int inDay = ticket.getInTime().getDay();
         int outDay = ticket.getOutTime().getDay();
         int inHour = ticket.getInTime().getHours();
@@ -26,17 +26,18 @@ public class FareCalculatorService {
         double outTime = (((double)outDay * 24) + outHour + ((double)outMinute / 60));
 
         double duration = outTime - inTime;
-        // Calculates the fare of the ticket according to the vehicle
+         // Calculates the fare of the ticket according to the vehicle
         switch (ticket.getParkingSpot().getParkingType()) {
             case CAR: {
-                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
+            	ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
                 break;
             }
             case BIKE: {
-                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
+            	ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
                 break;
             }
             default: throw new IllegalArgumentException("Unkown Parking Type");
         }
     }
+
 }

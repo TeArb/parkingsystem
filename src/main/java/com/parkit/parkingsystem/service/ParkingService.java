@@ -1,15 +1,16 @@
 package com.parkit.parkingsystem.service;
 
+import java.util.Date;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.util.InputReaderUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.Date;
 
 public class ParkingService {
 
@@ -39,7 +40,6 @@ public class ParkingService {
 	                // Allot this parking space and mark it's availability as false
 	                parkingSpot.setAvailable(false);
 	                parkingSpotDAO.updateParking(parkingSpot);
-
 	                Date inTime = new Date();
 	                Ticket ticket = new Ticket();
 	                //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)

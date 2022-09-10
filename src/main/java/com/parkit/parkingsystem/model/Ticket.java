@@ -1,5 +1,4 @@
 package com.parkit.parkingsystem.model;
-
 //import java.util.Calendar;
 import java.util.Date;
 

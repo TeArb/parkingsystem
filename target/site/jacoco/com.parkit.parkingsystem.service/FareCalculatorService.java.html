@@ -4,36 +4,41 @@ import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
 
 <span class="fc" id="L6">public class FareCalculatorService {</span>
-
+	/**
+	* 
+	* @param calculates the fare of the ticket according to the out time and the vehicle
+	*/
     @SuppressWarnings(&quot;deprecation&quot;)
-	public void calculateFare(Ticket ticket) {
-<span class="pc bpc" id="L10" title="1 of 4 branches missed.">        if((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {</span>
-<span class="fc" id="L11">            throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot; + ticket.getOutTime().toString());</span>
-        }
-        
-<span class="fc" id="L14">        int inDay = ticket.getInTime().getDay();</span>
-<span class="fc" id="L15">        int outDay = ticket.getOutTime().getDay();</span>
-<span class="fc" id="L16">        int inHour = ticket.getInTime().getHours();</span>
-<span class="fc" id="L17">        int outHour = ticket.getOutTime().getHours();</span>
-<span class="fc" id="L18">        int inMinute = ticket.getInTime().getMinutes();</span>
-<span class="fc" id="L19">        int outMinute = ticket.getOutTime().getMinutes();</span>
+	public void calculateFare(Ticket ticket) { 
+        // Display an error if the out time is null or after in time
+<span class="pc bpc" id="L14" title="1 of 4 branches missed.">        if((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {</span>
+<span class="fc" id="L15">            throw new IllegalArgumentException(&quot;Out time provided is incorrect:&quot; + ticket.getOutTime().toString());</span>
+        } 
+       
+<span class="fc" id="L18">        int inDay = ticket.getInTime().getDay();</span>
+<span class="fc" id="L19">        int outDay = ticket.getOutTime().getDay();</span>
+<span class="fc" id="L20">        int inHour = ticket.getInTime().getHours();</span>
+<span class="fc" id="L21">        int outHour = ticket.getOutTime().getHours();</span>
+<span class="fc" id="L22">        int inMinute = ticket.getInTime().getMinutes();</span>
+<span class="fc" id="L23">        int outMinute = ticket.getOutTime().getMinutes();</span>
 
-<span class="fc" id="L21">        double inTime = (((double)inDay * 24) + inHour + ((double)inMinute / 60));</span>
-<span class="fc" id="L22">        double outTime = (((double)outDay * 24) + outHour + ((double)outMinute / 60));</span>
+<span class="fc" id="L25">        double inTime = (((double)inDay * 24) + inHour + ((double)inMinute / 60));</span>
+<span class="fc" id="L26">        double outTime = (((double)outDay * 24) + outHour + ((double)outMinute / 60));</span>
 
-<span class="fc" id="L24">        double duration = outTime - inTime;</span>
-
-<span class="pc bpc" id="L26" title="1 of 3 branches missed.">        switch (ticket.getParkingSpot().getParkingType()) {</span>
+<span class="fc" id="L28">        double duration = outTime - inTime;</span>
+         // Calculates the fare of the ticket according to the vehicle
+<span class="pc bpc" id="L30" title="1 of 3 branches missed.">        switch (ticket.getParkingSpot().getParkingType()) {</span>
             case CAR: {
-<span class="fc" id="L28">                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
-<span class="fc" id="L29">                break;</span>
-            }
-            case BIKE: {
-<span class="fc" id="L32">                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L32">            	ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
 <span class="fc" id="L33">                break;</span>
             }
-<span class="nc" id="L35">            default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
+            case BIKE: {
+<span class="fc" id="L36">            	ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L37">                break;</span>
+            }
+<span class="nc" id="L39">            default: throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
         }
-<span class="fc" id="L37">    }</span>
+<span class="fc" id="L41">    }</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -140,7 +140,12 @@ public class ParkingService {
 	                parkingSpot.setAvailable(true);
 	                parkingSpotDAO.updateParking(parkingSpot);
 	                
-	                System.out.println("Please pay the parking fare:" + ticket.getPrice());
+	                if(ticket.getPrice() == 0.0) {
+	                	System.out.println("The first 30 minutes are free!");
+	                }
+	                else {
+	                	System.out.println("Please pay the parking fare:" + ticket.getPrice());
+	                }
 	                System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
 	            }
 	            else {

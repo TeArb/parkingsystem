@@ -19,27 +19,44 @@ import com.parkit.parkingsystem.model.Ticket;
 
 <span class="fc" id="L20">        double duration = (outHour - inHour);</span>
 <span class="fc" id="L21">        duration = duration / 60;</span>
-        
+                
+        //String query = &quot;select * from parking where PARKING_NUMBER and VEHICLE_REG_NUMBER = ?&quot;;
+        		
         // Verify the duration is greater than 30 minutes
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (duration &gt; 0.5) {</span>
-<span class="pc bpc" id="L25" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()) {</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (duration &gt; 0.5) {</span>
+<span class="pc bpc" id="L27" title="1 of 3 branches missed.">            switch (ticket.getParkingSpot().getParkingType()) {</span>
                 case CAR: {
-<span class="fc" id="L27">                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
-<span class="fc" id="L28">                    break;</span>
+<span class="fc" id="L29">                    ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);</span>
+<span class="fc" id="L30">                    break;</span>
                 }
                 case BIKE: {
-<span class="fc" id="L31">                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
-<span class="fc" id="L32">                    break;</span>
+<span class="fc" id="L33">                    ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);</span>
+<span class="fc" id="L34">                    break;</span>
                 }
                 default:
-<span class="nc" id="L35">                    throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
+<span class="nc" id="L37">                    throw new IllegalArgumentException(&quot;Unkown Parking Type&quot;);</span>
             }
-<span class="nc" id="L37">        }</span>
+<span class="nc" id="L39">        }/*</span>
+        else if(query){
+        	// Parking discount of 5% if the vehicle is not new
+        	ticket.setPrice((duration * Fare.CAR_RATE_PER_HOUR) * 100 / Fare.CAR_RATE_PER_HOUR);
+            ticket.setPrice((duration * Fare.BIKE_RATE_PER_HOUR) * 100 / Fare.BIKE_RATE_PER_HOUR);
+            System.out.println(&quot;-5% discount&quot;);
+        }
+          else if(the t.VEHICLE_REG_NUMBER=? is already exist in the DB){
+        	// Parking discount of 5% if the vehicle is not new
+        	//float percentage;
+        	//Percentage = (Obtained score x 100) / Total Score
+        	//discountPercentage = (score * 100/ total);
+            ticket.setPrice((duration * Fare.CAR_RATE_PER_HOUR) * 100 / Fare.CAR_RATE_PER_HOUR);
+            ticket.setPrice((duration * Fare.BIKE_RATE_PER_HOUR) * 100 / Fare.BIKE_RATE_PER_HOUR));  
+        }*/
         else {
         	// Parking free if the time is less than 30 minutes
-<span class="fc" id="L40">            ticket.setPrice(0.0);</span>
+<span class="fc" id="L56">            ticket.setPrice(0.0);</span>
+<span class="fc" id="L57">            System.out.println(&quot;The first 30 minutes are free!&quot;);</span>
         }
-<span class="fc" id="L42">	}</span>
+<span class="fc" id="L59">	}</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -26,10 +26,14 @@ public class ParkingSpotDAO {
         
         try {
             con = dataBaseConfig.getConnection();
+            
             PreparedStatement ps = con.prepareStatement(DBConstants.GET_NEXT_PARKING_SPOT);
+            
             ps.setString(1, parkingType.toString());
-            ResultSet rs = ps.executeQuery();          
-            // Get the next value of the row in the DB
+            
+            ResultSet rs = ps.executeQuery();    
+            
+            // Extract the value of the row in the DB
             if(rs.next()) {
                 result = rs.getInt(1);
             }
@@ -53,12 +57,15 @@ public class ParkingSpotDAO {
         
         try {
             con = dataBaseConfig.getConnection();
+            
             // Update the availability for that parking slot
             PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_PARKING_SPOT);
+            
             ps.setBoolean(1, parkingSpot.isAvailable());
             ps.setInt(2, parkingSpot.getId());
             
             int updateRowCount = ps.executeUpdate();
+            
             dataBaseConfig.closePreparedStatement(ps);
             
             return (updateRowCount == 1);

@@ -49,6 +49,7 @@ public class ParkingSpot {
         	return false;
         }
         ParkingSpot that = (ParkingSpot) o;
+        
         return number == that.number;
     }
 

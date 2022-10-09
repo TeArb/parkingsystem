@@ -103,6 +103,7 @@
                     </execution>
                 </executions>
             </plugin>
+<!-- Surefire -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -137,6 +138,7 @@
                     </execution>
                 </executions>
             </plugin>
+<!-- Jacoco -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -156,6 +158,7 @@
                     </execution>
                 </executions>
             </plugin>
+<!-- Spotbugs -->
             <plugin>
 				<groupId>com.github.spotbugs</groupId>
 				<artifactId>spotbugs-maven-plugin</artifactId>

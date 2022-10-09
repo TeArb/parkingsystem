@@ -19,7 +19,7 @@ public class FareCalculatorService {
 
         double duration = (outHour - inHour);
         duration = duration / 60;
-        
+                        		
         // Verify the duration is greater than 30 minutes
         if (duration > 0.5) {
             switch (ticket.getParkingSpot().getParkingType()) {
@@ -38,6 +38,7 @@ public class FareCalculatorService {
         else {
         	// Parking free if the time is less than 30 minutes
             ticket.setPrice(0.0);
+            System.out.println("The first 30 minutes are free!");
         }
 	}
 

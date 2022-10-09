@@ -37,12 +37,14 @@ public class ParkingService {
 	            
 	            if(parkingSpot != null && parkingSpot.getId() > 0) {
 	                String vehicleRegNumber = getVehichleRegNumber();
+	                Date inTime = new Date();
+	                Ticket ticket = new Ticket();
+	                
 	                // Allot this parking space and mark it's availability as false
 	                parkingSpot.setAvailable(false);
 	                parkingSpotDAO.updateParking(parkingSpot);
-	                Date inTime = new Date();
-	                Ticket ticket = new Ticket();
-	                //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
+	                
+	                //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME
 	                //ticket.setId(ticketID);
 	                ticket.setParkingSpot(parkingSpot);
 	                ticket.setVehicleRegNumber(vehicleRegNumber);
@@ -53,8 +55,8 @@ public class ParkingService {
 	                ticketDAO.saveTicket(ticket);
 	                
 	                System.out.println("Generated Ticket and saved in DB");
-	                System.out.println("Please park your vehicle in spot number:" + parkingSpot.getId());
-	                System.out.println("Recorded in-time for vehicle number:" + vehicleRegNumber + " is:" + inTime);
+	                System.out.println("Please park your vehicle in spot number: " + parkingSpot.getId());
+	                System.out.println("Recorded in-time for vehicle number: " + vehicleRegNumber + " is: " + inTime);
 	            }
 	        }
 	        catch(Exception e) {
@@ -67,6 +69,7 @@ public class ParkingService {
 		*/
 	    private String getVehichleRegNumber() throws Exception {
 	        System.out.println("Please type the vehicle registration number and press enter key");
+	        
 	        return inputReaderUtil.readVehicleRegistrationNumber();
 	    }
 	    /**
@@ -78,7 +81,7 @@ public class ParkingService {
 	        ParkingSpot parkingSpot = null;
 	        
 	        try{
-	            ParkingType parkingType = getVehichleType();
+	            ParkingType parkingType = getVehicleType();
 	            // Get available parking spot from the DB
 	            parkingNumber = parkingSpotDAO.getNextAvailableSlot(parkingType);
 	            
@@ -101,7 +104,7 @@ public class ParkingService {
 		* 
 		* @param returns the selected vehicle type
 		*/
-	    private ParkingType getVehichleType(){
+	    private ParkingType getVehicleType(){
 	        System.out.println("Please select vehicle type from menu");
 	        System.out.println("1 CAR");
 	        System.out.println("2 BIKE");
@@ -133,19 +136,16 @@ public class ParkingService {
 	            
 	            ticket.setOutTime(outTime);
 	            fareCalculatorService.calculateFare(ticket);
+	            
 	            // Update the ticket from the DB
 	            if(ticketDAO.updateTicket(ticket)) {
 	                ParkingSpot parkingSpot = ticket.getParkingSpot();
+	                
 	                // Set parking spot as available 
 	                parkingSpot.setAvailable(true);
 	                parkingSpotDAO.updateParking(parkingSpot);
 	                
-	                if(ticket.getPrice() == 0.0) {
-	                	System.out.println("The first 30 minutes are free!");
-	                }
-	                else {
-	                	System.out.println("Please pay the parking fare:" + ticket.getPrice());
-	                }
+	                System.out.println("Please pay the parking fare: " + ticket.getPrice());
 	                System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
 	            }
 	            else {

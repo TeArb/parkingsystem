@@ -42,6 +42,7 @@ public class InteractiveShell {
              // If case 3 shutdown system
                 case 3: {
                     System.out.println("Exiting from the system!");
+                    
                     continueApp = false;
                     break;
                 }

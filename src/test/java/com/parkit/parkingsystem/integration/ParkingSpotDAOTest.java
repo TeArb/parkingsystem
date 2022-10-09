@@ -1,4 +1,5 @@
-package com.parkit.parkingsystem;
+package com.parkit.parkingsystem.integration;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -35,7 +36,7 @@ class ParkingSpotDAOTest {
 
 	@Test
 	void getNextAvaiableSlotCar() {
-		assertNotEquals(1, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
+		assertNotEquals(3, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
 	}
 
 	@Test
@@ -49,4 +50,5 @@ class ParkingSpotDAOTest {
 		
 		assertEquals(true, parkingSpotDAO.updateParking(parkingSpot));
 	}
+
 }
